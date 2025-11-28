@@ -2,13 +2,9 @@
 
 namespace App\Models;
 
-class UserHousehold
+use Illuminate\Database\Eloquent\Model;
+
+class UserHousehold extends Model
 {
-    /**
-     * Create a new class instance.
-     */
-    public function __construct()
-    {
-        //
-    }
+    //
 }
