@@ -14,7 +14,7 @@ class UserService
         return User::findOrFail($id);
     }
 
-    function craete()
+    function create()
     {
         return new User;
     }
