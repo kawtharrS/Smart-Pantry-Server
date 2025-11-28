@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Traits;
+namespace App\Models;
 
-class TestTrait
+class Household
 {
     /**
      * Create a new class instance.
