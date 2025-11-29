@@ -2,7 +2,18 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\HouseHoldController;
-
+use App\Http\Controllers\User\IngredientController;
+use App\Http\Controllers\User\PantryItemsController;
+use App\Http\Controllers\User\PantryTransactionController;
+use App\Http\Controllers\User\RecipeController;
+use App\Http\Controllers\User\RecipeIngredientcontroller;
+use App\Http\Controllers\User\RecipeInstructionController;
+use App\Http\Controllers\User\MealPlanController;
+use App\Http\Controllers\User\MealPlanItemController;
+use App\Http\Controllers\User\ExpenseController;
+use App\Http\Controllers\User\ExpenseItemController;
+use App\Http\Controllers\User\ShoppingListController;
+use App\Http\Controllers\User\ShoppingListItemController;
 
 Route::group(["prefix"=>"user"], function(){
     Route::get('/users', [UserController::class, "getAllUsers"]);
@@ -19,6 +30,104 @@ Route::group(["prefix"=>"household"], function(){
     Route::post('/add', [HouseHoldController::class, "createHousehold"]);
     Route::post('/update/{id}', [HouseHoldController::class, "updateHousehold"]);
 });
+
+Route::group(["prefix"=>"ingredients"], function(){
+    Route::get('/ingredients', [IngredientController::class, "getAllIngredients"]);
+    Route::get('/delete/{id}',[IngredientController::class, "deleteIngredient"] );
+    Route::get('/ingredient/{id}',[IngredientController::class, "show"] );
+    Route::post('/add', [IngredientController::class, "createIngredient"]);
+    Route::post('/update/{id}', [IngredientController::class, "updateIngredient"]);
+});
+
+Route::group(["prefix"=>"pantryItems"], function(){
+    Route::get('/pantryItems', [PantryItemsController::class, "getAllPantryItems"]);
+    Route::get('/delete/{id}',[PantryItemsController::class, "deletePantryItem"] );
+    Route::get('/pantryItem/{id}',[PantryItemsController::class, "show"] );
+    Route::post('/add', [PantryItemsController::class, "createPantryItem"]);
+    Route::post('/update/{id}', [PantryItemsController::class, "updatePantryItem"]);
+});
+
+Route::group(["prefix"=>"pantryTransactions"], function(){
+    Route::get('/pantryTransactions', [PantryTransactionController::class, "getAllPantryTransactions"]);
+    Route::get('/delete/{id}',[PantryTransactionController::class, "deletePantryTransaction"] );
+    Route::get('/pantryTransaction/{id}',[PantryTransactionController::class, "show"] );
+    Route::post('/add', [PantryTransactionController::class, "createPantryTransaction"]);
+    Route::post('/update/{id}', [PantryTransactionController::class, "updatePantryTransaction"]);
+});
+
+Route::group(["prefix"=>"recipes"], function(){
+    Route::get('/recipes', [RecipeController::class, "getAllRecipes"]);
+    Route::get('/delete/{id}',[RecipeController::class, "deleteRecipe"] );
+    Route::get('/recipe/{id}',[RecipeController::class, "show"] );
+    Route::post('/add', [RecipeController::class, "createRecipe"]);
+    Route::post('/update/{id}', [RecipeController::class, "updateRecipe"]);
+});
+
+Route::group(["prefix"=>"recipeInstructions"], function(){
+    Route::get('/recipeInstructions', [RecipeIngredientcontroller::class, "getAllRecipesIntruction"]);
+    Route::get('/delete/{id}',[RecipeIngredientcontroller::class, "deleteRecipeInstruction"] );
+    Route::get('/recipeInstruction/{id}',[RecipeIngredientcontroller::class, "show"] );
+    Route::post('/add', [RecipeIngredientcontroller::class, "createRecipeInstruction"]);
+    Route::post('/update/{id}', [RecipeIngredientcontroller::class, "updateRecipeInsruction"]);
+});
+
+Route::group(["prefix"=>"recipeIngredients"], function(){
+    Route::get('/recipeIngredients', [RecipeInstructionController::class, "getAllRecipesIngredient"]);
+    Route::get('/delete/{id}',[RecipeInstructionController::class, "deleteRecipeIngredient"] );
+    Route::get('/recipeIngredient/{id}',[RecipeInstructionController::class, "show"] );
+    Route::post('/add', [RecipeInstructionController::class, "createRecipeInstruction"]);
+    Route::post('/update/{id}', [RecipeInstructionController::class, "updateRecipeIngredient"]);
+});
+
+
+Route::group(["prefix"=>"mealplans"], function(){
+    Route::get('/mealPlans', [MealPlanController::class, "getAllMealPlans"]);
+    Route::get('/delete/{id}',[MealPlanController::class, "deleteMealPlan"] );
+    Route::get('/mealPlan/{id}',[MealPlanController::class, "show"] );
+    Route::post('/add', [MealPlanController::class, "createMealPlan"]);
+    Route::post('/update/{id}', [MealPlanController::class, "updateMealPlan"]);
+});
+
+Route::group(["prefix"=>"mealplanItems"], function(){
+    Route::get('/mealPlanItems', [MealPlanItemController::class, "getAllMealPlanItems"]);
+    Route::get('/delete/{id}',[MealPlanItemController::class, "deleteMealPlanItem"] );
+    Route::get('/mealPlanItem/{id}',[MealPlanItemController::class, "show"] );
+    Route::post('/add', [MealPlanItemController::class, "createMealPlanItem"]);
+    Route::post('/update/{id}', [MealPlanItemController::class, "updateMealPlanItem"]);
+});
+
+Route::group(["prefix"=>"shoppinglists"], function(){
+    Route::get('/shoppinglists', [ShoppingListController::class, "getAllShoppingLists"]);
+    Route::get('/delete/{id}',[ShoppingListController::class, "deleteShoppingList"] );
+    Route::get('/shoppinglist/{id}',[ShoppingListController::class, "show"] );
+    Route::post('/add', [ShoppingListController::class, "createShoppingList"]);
+    Route::post('/update/{id}', [ShoppingListController::class, "updateShoppingList"]);
+});
+
+Route::group(["prefix"=>"shoppinglistitems"], function(){
+    Route::get('/shoppinglistitems', [ShoppingListItemController::class, "getAllShoppingListItems"]);
+    Route::get('/delete/{id}',[ShoppingListItemController::class, "deleteShoppingListItem"] );
+    Route::get('/shoppinglistitem/{id}',[ShoppingListItemController::class, "show"] );
+    Route::post('/add', [ShoppingListItemController::class, "createShoppingListItem"]);
+    Route::post('/update/{id}', [ShoppingListItemController::class, "updateShoppingListItem"]);
+});
+
+Route::group(["prefix"=>"expenses"], function(){
+    Route::get('/expenses', [ExpenseController::class, "getAllExpense"]);
+    Route::get('/delete/{id}',[ExpenseController::class, "deleteExpense"] );
+    Route::get('/expense/{id}',[ExpenseController::class, "show"] );
+    Route::post('/add', [ExpenseController::class, "createExpense"]);
+    Route::post('/update/{id}', [ExpenseController::class, "updateExpense"]);
+});
+
+Route::group(["prefix"=>"expenseItems"], function(){
+    Route::get('/expenseItems', [ExpenseItemController::class, "getAllMExpenseItems"]);
+    Route::get('/delete/{id}',[ExpenseItemController::class, "deleteExpenseItems"] );
+    Route::get('/expenseItem/{id}',[ExpenseItemController::class, "show"] );
+    Route::post('/add', [ExpenseItemController::class, "createExpenseItem"]);
+    Route::post('/update/{id}', [ExpenseItemController::class, "updateExpenseItem"]);
+});
+
 
 
 
