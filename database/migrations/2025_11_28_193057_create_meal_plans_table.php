@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('meal_plans', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("household_id");
+            $table->date("week_start_date")->nullable();
+            $table->foreign(columns: 'household_id')->references('id')->on('households');
             $table->timestamps();
         });
     }

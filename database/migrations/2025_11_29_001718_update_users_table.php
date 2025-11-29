@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('recipes_ingredients_tabke', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table){
+                $table->foreignId('role_id')
+                      ->after('password')     
+                      ->constrained('roles');
         });
     }
 
@@ -22,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('recipes_ingredients_tabke');
+        //
     }
 };

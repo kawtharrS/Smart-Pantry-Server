@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Household;
+namespace App\Services\User;
 use App\Models\Household;
 class HouseholdService
 {

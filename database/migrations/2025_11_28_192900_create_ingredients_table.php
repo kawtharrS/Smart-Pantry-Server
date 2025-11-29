@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('ingredients', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("unit_id");
+            $table->string("name");
+            $table->decimal("caloriesPer100g")->nullable();
+            $table->decimal("proteinPer100g")->nullable();
+            $table->decimal("fatsPer100g")->nullable();
+            $table->decimal("carbsPer100g")->nullable();
+            $table->foreign(columns: 'unit_id')->references('id')->on('units');
             $table->timestamps();
         });
     }

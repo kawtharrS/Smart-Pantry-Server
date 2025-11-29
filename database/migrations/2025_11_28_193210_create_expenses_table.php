@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('expenses', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("household_id");
+            $table->unsignedBigInteger("currency_id");
+            $table->unsignedBigInteger("category_id");
+            $table->decimal("amount");
+            $table->foreign(columns: 'household_id')->references('id')->on('households');
+            $table->foreign(columns: 'currency_id')->references('id')->on('currencys');
+            $table->foreign(columns: 'category_id')->references('id')->on('categorys');
             $table->timestamps();
         });
     }

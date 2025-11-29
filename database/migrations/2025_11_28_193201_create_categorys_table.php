@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('categorys', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("household_id");
+            $table->string("name");
+            $table->string("type")->nullable();
             $table->timestamps();
         });
     }
