@@ -6,5 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class MealPlan extends Model
 {
-    //
+    public function recipes(){
+        return $this->hasMany(Recipe::class);
+    }
 }

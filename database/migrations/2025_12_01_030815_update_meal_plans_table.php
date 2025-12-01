@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table){
+        Schema::table('meal_plans', function (Blueprint $table) {
+            $table->unsignedBigInteger('recipe_id')->nullable()->after('id');
 
+            $table->foreign('recipe_id')
+                  ->references('id')
+                  ->on('recipes')
+                  ->onDelete('cascade');
         });
     }
 

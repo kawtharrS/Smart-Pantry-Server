@@ -37,6 +37,7 @@ class UserController extends Controller
         $user->name = $request["name"];
         $user->email = $request["email"];
         $user->password = $request["password"];
+        $user->role_id = $request["role_id"];
 
         if($user->save())
             return $this->responseJSON($user);

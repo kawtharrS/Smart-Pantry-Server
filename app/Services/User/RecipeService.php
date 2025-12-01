@@ -6,12 +6,13 @@ class RecipeService
 {
     function getAll()
     {
-        return Recipe::all();
+        return Recipe::with('ingredients')->get();
     }
 
     function getById($id)
     {
-        return Recipe::findOrFail($id);
+        return Recipe::with('ingredients')->findOrFail($id);
+        
     }
 
     function create()

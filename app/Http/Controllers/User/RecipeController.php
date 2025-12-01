@@ -32,9 +32,13 @@ class RecipeController extends Controller
     function createRecipe(Request $request)
     {
         $recipe = $this->recipeService->create();
-        $recipe->name = $request["name"];
-        $recipe->email = $request["email"];
-        $recipe->password = $request["password"];
+        $recipe->household_id = $request["household_id"];
+        $recipe->user_id=$request["user_id"];
+        $recipe->title = $request["title"];
+        $recipe->description = $request["description"];
+        $recipe->prep_time_min = $request["prep_time_min"];
+        $recipe->cook_time_min = $request["cook_time_min"];
+        $recipe->serving = $request["serving"];
 
         if($recipe->save())
             return $this->responseJSON($recipe);

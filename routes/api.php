@@ -15,6 +15,8 @@ use App\Http\Controllers\User\ExpenseItemController;
 use App\Http\Controllers\User\ShoppingListController;
 use App\Http\Controllers\User\ShoppingListItemController;
 
+
+
 Route::group(["prefix"=>"user"], function(){
     Route::get('/users', [UserController::class, "getAllUsers"]);
     Route::get('/delete/{id}',[UserController::class, "deleteUser"] );
@@ -31,7 +33,7 @@ Route::group(["prefix"=>"household"], function(){
     Route::post('/update/{id}', [HouseHoldController::class, "updateHousehold"]);
 });
 
-Route::group(["prefix"=>"ingredients"], function(){
+Route::group(["prefix"=>"ingredient"], function(){
     Route::get('/ingredients', [IngredientController::class, "getAllIngredients"]);
     Route::get('/delete/{id}',[IngredientController::class, "deleteIngredient"] );
     Route::get('/ingredient/{id}',[IngredientController::class, "show"] );
@@ -55,7 +57,7 @@ Route::group(["prefix"=>"pantryTransactions"], function(){
     Route::post('/update/{id}', [PantryTransactionController::class, "updatePantryTransaction"]);
 });
 
-Route::group(["prefix"=>"recipes"], function(){
+Route::group(["prefix"=>"recipe"], function(){
     Route::get('/recipes', [RecipeController::class, "getAllRecipes"]);
     Route::get('/delete/{id}',[RecipeController::class, "deleteRecipe"] );
     Route::get('/recipe/{id}',[RecipeController::class, "show"] );
@@ -63,27 +65,27 @@ Route::group(["prefix"=>"recipes"], function(){
     Route::post('/update/{id}', [RecipeController::class, "updateRecipe"]);
 });
 
-Route::group(["prefix"=>"recipeInstructions"], function(){
-    Route::get('/recipeInstructions', [RecipeIngredientcontroller::class, "getAllRecipesIntruction"]);
-    Route::get('/delete/{id}',[RecipeIngredientcontroller::class, "deleteRecipeInstruction"] );
-    Route::get('/recipeInstruction/{id}',[RecipeIngredientcontroller::class, "show"] );
-    Route::post('/add', [RecipeIngredientcontroller::class, "createRecipeInstruction"]);
-    Route::post('/update/{id}', [RecipeIngredientcontroller::class, "updateRecipeInsruction"]);
-});
-
-Route::group(["prefix"=>"recipeIngredients"], function(){
-    Route::get('/recipeIngredients', [RecipeInstructionController::class, "getAllRecipesIngredient"]);
-    Route::get('/delete/{id}',[RecipeInstructionController::class, "deleteRecipeIngredient"] );
-    Route::get('/recipeIngredient/{id}',[RecipeInstructionController::class, "show"] );
+Route::group(["prefix"=>"recipeInstruction"], function(){
+    Route::get('/recipeInstructions', [RecipeInstructionController::class, "getAllRecipesInstruction"]);
+    Route::get('/delete/{id}',[RecipeInstructionController::class, "deleteRecipeInstruction"] );
+    Route::get('/recipeInstruction/{id}',[RecipeInstructionController::class, "show"] );
     Route::post('/add', [RecipeInstructionController::class, "createRecipeInstruction"]);
-    Route::post('/update/{id}', [RecipeInstructionController::class, "updateRecipeIngredient"]);
+    Route::post('/update/{id}', [RecipeInstructionController::class, "updateRecipeInsruction"]);
+});
+
+Route::group(["prefix"=>"recipeIngredient"], function(){
+    Route::get('/recipeIngredients', [RecipeIngredientcontroller::class, "getAllRecipesIngredient"]);
+    Route::get('/delete/{id}',[RecipeIngredientcontroller::class, "deleteRecipeIngredient"] );
+    Route::get('/recipeIngredient/{id}',[RecipeIngredientcontroller::class, "show"] );
+    Route::post('/add', [RecipeIngredientcontroller::class, "createRecipeInstruction"]);
+    Route::post('/update/{id}', [RecipeIngredientcontroller::class, "updateRecipeIngredient"]);
 });
 
 
-Route::group(["prefix"=>"mealplans"], function(){
-    Route::get('/mealPlans', [MealPlanController::class, "getAllMealPlans"]);
+Route::group(["prefix"=>"mealplan"], function(){
+    Route::get('/mealplans', [MealPlanController::class, "getAllMealPlans"]);
     Route::get('/delete/{id}',[MealPlanController::class, "deleteMealPlan"] );
-    Route::get('/mealPlan/{id}',[MealPlanController::class, "show"] );
+    Route::get('/mealplan/{id}',[MealPlanController::class, "show"] );
     Route::post('/add', [MealPlanController::class, "createMealPlan"]);
     Route::post('/update/{id}', [MealPlanController::class, "updateMealPlan"]);
 });

@@ -32,9 +32,10 @@ class RecipeIngredientcontroller extends Controller
     function createRecipesIngredient(Request $request)
     {
         $recipe = $this->recipeIngredientService->create();
-        $recipe->name = $request["name"];
-        $recipe->email = $request["email"];
-        $recipe->password = $request["password"];
+        $recipe->recipe_id = $request["recipe_id"];
+        $recipe->ingredient_id = $request["ingredient_id"];
+        $recipe->unit_id = $request["unit_id"];
+        $recipe->quantity = $request["quantity"];
 
         if($recipe->save())
             return $this->responseJSON($recipe);

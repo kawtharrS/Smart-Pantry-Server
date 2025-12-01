@@ -32,9 +32,9 @@ class RecipeInstructionController extends Controller
     function createRecipesInstruction(Request $request)
     {
         $recipe = $this->recipeIntruction->create();
-        $recipe->name = $request["name"];
-        $recipe->email = $request["email"];
-        $recipe->password = $request["password"];
+        $recipe->recipe_id = $request["recipe_id"];
+        $recipe->stepNb = $request["stepNb"];
+        $recipe->instruction = $request["instruction"];
 
         if($recipe->save())
             return $this->responseJSON($recipe);

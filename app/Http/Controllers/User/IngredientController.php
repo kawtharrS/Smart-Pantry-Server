@@ -31,13 +31,18 @@ class IngredientController extends Controller
 
     function createIngredient(Request $request)
     {
-        $user = $this->ingredientService->create();
-        $user->name = $request["name"];
-        $user->email = $request["email"];
-        $user->password = $request["password"];
+        $ingredient = $this->ingredientService->create();
+        $ingredient->name = $request["name"];
+        $ingredient->unit_id = $request["unit_id"];
+        $ingredient->caloriesPer100g = $request["caloriesPer100g"];
+        $ingredient->proteinPer100g = $request["proteinPer100g"];
+        $ingredient->fatsPer100g = $request["fatsPer100g"];
+        $ingredient->carbsPer100g = $request["carbsPer100g"];
+        $ingredient->expiry_date = $request["expiry_date"];
+        $ingredient->quantity = $request["quantity"];
 
-        if($user->save())
-            return $this->responseJSON($user);
+        if($ingredient->save())
+            return $this->responseJSON($ingredient);
         return $this->responseJSON(null, "failure", 400);
     }
 

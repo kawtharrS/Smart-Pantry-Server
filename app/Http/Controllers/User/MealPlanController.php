@@ -32,13 +32,12 @@ class MealPlanController extends Controller
 
     function createMealPlan(Request $request)
     {
-        $user = $this->mealPlanService->create();
-        $user->name = $request["name"];
-        $user->email = $request["email"];
-        $user->password = $request["password"];
+        $meal = $this->mealPlanService->create();
+        $meal->recipe_id = $request["recipe_id"];
+        $meal->household_id = $request["household_id"];
 
-        if($user->save())
-            return $this->responseJSON($user);
+        if($meal->save())
+            return $this->responseJSON($meal);
         return $this->responseJSON(null, "failure", 400);
     }
 

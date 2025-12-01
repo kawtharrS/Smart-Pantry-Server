@@ -11,8 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table){
-
+        Schema::table('ingredients', function (Blueprint $table){
+            $table->decimal("quantity")->after("carbsPer100g");
+            $table->date("expiry_date")->nullable()->after("carbsPer100g");
+                
         });
     }
 

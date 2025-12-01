@@ -1,34 +1,34 @@
 <?php
 
 namespace App\Services\User;
-use App\Models\RecipeIngredient;
+use App\Models\RecipesIngredient;
 class RecipeIngredientService
 {
    function getAll()
     {
-        return RecipeIngredient::all();
+        return RecipesIngredient::all();
     }
 
     function getById($id)
     {
-        return RecipeIngredient::findOrFail($id);
+        return RecipesIngredient::findOrFail($id);
     }
 
     function create()
     {
-        return new RecipeIngredient;
+        return new RecipesIngredient;
     }
 
     function update($id, array $data)
     {
-        $recipe = RecipeIngredient::findOrFail($id);
+        $recipe = RecipesIngredient::findOrFail($id);
         $recipe->update($data);
         return $recipe;
     }
 
     function delete($id)
     {
-        $recipe = RecipeIngredient::findOrFail($id);
+        $recipe = RecipesIngredient::findOrFail($id);
         $recipe->delete();
         return true;
     }

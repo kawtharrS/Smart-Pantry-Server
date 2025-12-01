@@ -6,12 +6,13 @@ class MealPlanService
 {
     function getAll()
     {
-        return MealPlan::all();
+        return MealPlan::with('recipes')->get();
     }
 
     function getById($id)
     {
-        return MealPlan::findOrFail($id);
+        return MealPlan::with('recipes')->findOrFail($id);
+
     }
 
     function create()
