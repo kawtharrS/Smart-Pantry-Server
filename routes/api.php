@@ -82,12 +82,13 @@ Route::group(["prefix"=>"recipeIngredient"], function(){
 });
 
 
-Route::group(["prefix"=>"mealplan"], function(){
+Route::group(["prefix" => "mealplan"], function() {
     Route::get('/mealplans', [MealPlanController::class, "getAllMealPlans"]);
-    Route::get('/delete/{id}',[MealPlanController::class, "deleteMealPlan"] );
-    Route::get('/mealplan/{id}',[MealPlanController::class, "show"] );
+    Route::get('/mealplan/day/{day}', [MealPlanController::class, "getByDay"]); 
+    Route::get('/mealplan/{id}', [MealPlanController::class, "show"]);
     Route::post('/add', [MealPlanController::class, "createMealPlan"]);
     Route::post('/update/{id}', [MealPlanController::class, "updateMealPlan"]);
+    Route::get('/delete/{id}', [MealPlanController::class, "deleteMealPlan"]);
 });
 
 Route::group(["prefix"=>"mealplanItems"], function(){
