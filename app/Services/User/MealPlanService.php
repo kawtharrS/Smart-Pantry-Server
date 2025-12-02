@@ -8,19 +8,19 @@ class MealPlanService
 {
     function getAll()
     {
-        return MealPlan::with('recipe')->get();
+        return MealPlan::with('recipe.ingredients')->get();
     }
 
     function getById($id)
     {
-        return MealPlan::with('recipe' )->findOrFail($id);
+        return MealPlan::with('recipe.ingredients' )->findOrFail($id);
     }
     
     function getByDay($day)
     {
         return MealPlan::where('day', $day)
-                      ->with('recipe')
-                      ->first(); 
+                       ->with('recipe.ingredients')
+                       ->first(); 
     }
 
     function create()

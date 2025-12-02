@@ -50,4 +50,19 @@ class ShoppingListController extends Controller
         }
         return $this->responseJSON(null. "failure", 400);
     }
+
+    public function getWeeklyShoppingList(Request $request)
+    {
+        $householdId = $request->query('household_id');
+
+        if (!$householdId) {
+            return $this->responseJSON(null, 'household_id is required', 400);
+        }
+
+        $weekDays = $request->query('days'); 
+
+        $shoppingList = $this->shoppingListService->getWeeklyShoppingList($householdId, $weekDays);
+
+        return $this->responseJSON($shoppingList, 'success', 200);
+    }
 }

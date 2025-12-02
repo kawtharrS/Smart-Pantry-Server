@@ -1,34 +1,40 @@
 <?php
 
 namespace App\Services\User;
-use App\Models\PantryItem;
+
+use App\Models\PantriesItem;
+use App\Models\Ingredient;
+
 class PantryItemsService
 {
     function getAllPantryItems()
     {
-        return PantryItem::all();
+        return PantriesItem::with('ingredient')->get();
     }
 
     function getPantryItemById($id)
     {
-        return PantryItem::findOrFail($id);
+        return PantriesItem::with('ingredient')->findOrFail($id);
     }
 
-    function create()
-    {
-        return new PantryItem;
-    }
+public function create()
+{
+    return new PantriesItem();
+  
+}
+
+
 
     function update($id, array $data)
     {
-        $pantryItem = PantryItem::findOrFail($id);
+        $pantryItem = PantriesItem::findOrFail($id);
         $pantryItem->update($data);
         return $pantryItem;
     }
 
     function delete($id)
     {
-        $pantryItem = PantryItem::findOrFail($id);
+        $pantryItem = PantriesItem::findOrFail($id);
         $pantryItem->delete();
         return true;
     }

@@ -15,7 +15,7 @@ class Recipe extends Model
         'description',
         'prep_time_min',
         'cook_time_min',
-        'serving'
+        'serving',
     ];
 
     public function instructions(): HasMany{
@@ -23,7 +23,13 @@ class Recipe extends Model
     }
 
     public function ingredients(): BelongsToMany{
-        return $this->belongsToMany(Ingredient::class, 'recipes_ingredients_table');
+        return $this->belongsToMany(
+    Ingredient::class,
+    'recipes_ingredients_table', 
+    'recipe_id',           
+    'ingredient_id'        
+        );
+
     }
 
     public function mealPlan() {

@@ -31,13 +31,17 @@ class PantryItemsController extends Controller
 
     function createPantryItem(Request $request)
     {
-        $user = $this->pantryItemsService->create();
-        $user->name = $request["name"];
-        $user->email = $request["email"];
-        $user->password = $request["password"];
+        
+        $item = $this->pantryItemsService->create();
+        $item->household_id = $request["household_id"];
+        $item->ingredient_id = $request["ingredient_id"];
+        $item->unit_id = $request["unit_id"];
+        $item->quantity = $request["quantity"];
+        $item->location = $request["location"];
+        $item->expiry_date = $request["expiry_date"];
 
-        if($user->save())
-            return $this->responseJSON($user);
+        if($item->save())
+            return $this->responseJSON($item);
         return $this->responseJSON(null, "failure", 400);
     }
 

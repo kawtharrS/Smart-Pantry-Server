@@ -40,8 +40,16 @@ class RecipeController extends Controller
         $recipe->cook_time_min = $request["cook_time_min"];
         $recipe->serving = $request["serving"];
 
-        if($recipe->save())
-            return $this->responseJSON($recipe);
+        if($recipe->save()){
+            if (!empty($request['ingredients']) && is_array($request['ingredients'])) {
+            foreach ($request['ingredients'] as $ingredient) {
+                $recipe->ingredients()->attach($ingredient['ingredient_id'], [
+                    'quantity' => $ingredient['quantity'],
+                    'unit_id' => $ingredient['unit_id'],
+                ]);
+            }
+        }
+            return $this->responseJSON($recipe);}
         return $this->responseJSON(null, "failure", 400);
     }
 

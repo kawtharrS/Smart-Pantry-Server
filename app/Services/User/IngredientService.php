@@ -21,15 +21,15 @@ class IngredientService
 
     function update($id, array $data)
     {
-        $Ingredient = Ingredient::findOrFail($id);
-        $Ingredient->update($data);
-        return $Ingredient;
+        $ingredient = Ingredient::findOrFail($id);
+        $ingredient->update($data);
+        return $ingredient;
     }
 
     function delete($id)
     {
-        $Ingredient = Ingredient::findOrFail($id);
-        $Ingredient->delete();
+        $ingredient = Ingredient::findOrFail($id);
+        $ingredient->delete();
         return true;
     }
 }
