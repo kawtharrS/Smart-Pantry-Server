@@ -5,49 +5,49 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\User\ShoppingListService;
+
 class ShoppingListController extends Controller
 {
-       public function __construct(protected ShoppingListService $shoppingListService)
+    public function __construct(protected ShoppingListService $shoppingListService)
     {}
     function getAllshoppingLists()
     {
-        $recipes = $this->shoppingListService->getAll();
-        return $this->responseJSON($recipes);
+        $items = $this->shoppingListService->getAll();
+        return $this->responseJSON($items);
     }
 
     function show($id)
     {
-        $recipe = $this->shoppingListService->getById($id);
-        return $this->responseJSON($recipe);
+        $item = $this->shoppingListService->getById($id);
+        return $this->responseJSON($item);
     }
 
     function updateshoppingList(Request $request, $id)
     {
-        $recipe = $this->shoppingListService->update($id, $request->all());
-        if($recipe)
-            return $this->responseJSON($recipe, "success", 200);
-        return $this->responseJSON($recipe, "failure", 400);
+        $item = $this->shoppingListService->update($id, $request->all());
+        if($item)
+            return $this->responseJSON($item, "success", 200);
+        return $this->responseJSON($item, "failure", 400);
     }
 
     function createShoppingList(Request $request)
     {
-        $recipe = $this->shoppingListService->create();
-        $recipe->name = $request["name"];
-        $recipe->email = $request["email"];
-        $recipe->password = $request["password"];
+        $item = $this->shoppingListService->create();
+        $item->name = $request["name"];
+        $item->email = $request["email"];
+        $item->password = $request["password"];
 
-        if($recipe->save())
-            return $this->responseJSON($recipe);
+        if($item->save())
+            return $this->responseJSON($item);
         return $this->responseJSON(null, "failure", 400);
     }
 
     function deleteShoppingList($id)
     {
-        $recipe = $this->shoppingListService->delete($id);
-        if($recipe)
-        {
-            return $this->responseJSON($recipe, "success", 200);
-        }
+        $item = $this->shoppingListService->delete($id);
+        if($item)
+            return $this->responseJSON($item, "success", 200);
+        
         return $this->responseJSON(null. "failure", 400);
     }
 
@@ -55,14 +55,12 @@ class ShoppingListController extends Controller
     {
         $householdId = $request->query('household_id');
 
-        if (!$householdId) {
+        if (!$householdId) 
             return $this->responseJSON(null, 'household_id is required', 400);
-        }
+        
 
         $weekDays = $request->query('days'); 
-
         $shoppingList = $this->shoppingListService->getWeeklyShoppingList($householdId, $weekDays);
-
         return $this->responseJSON($shoppingList, 'success', 200);
     }
 }

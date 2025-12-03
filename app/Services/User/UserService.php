@@ -4,12 +4,12 @@ namespace App\Services\User;
 use App\Models\User;
 class UserService
 {
-    function getAllUsers()
+    function getAll()
     {
         return User::all();
     }
 
-    function getUserById($id)
+    function getById($id)
     {
         return User::findOrFail($id);
     }

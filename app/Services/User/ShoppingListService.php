@@ -34,31 +34,28 @@ class ShoppingListService
         $recipe->delete();
         return true;
     }
-         function getWeeklyShoppingList($householdId, $weekDays = null)
+    function getWeeklyShoppingList($householdId, $weekDays)
     {
-        // Default to all days of the week
-        $weekDays = $weekDays ?? ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+        $missing = [];
 
-        $missingIngredients = [];
-
-        // Load meal plans with recipes and ingredients
-        $mealPlans = MealPlan::with('recipe.ingredients')
+        // to get mealplans for the week
+        $mealPlans = MealPlan::with(relations: 'recipe.ingredients')
                         ->where('household_id', $householdId)
                         ->whereIn('day', $weekDays)
                         ->get();
-
+        // relationship mealplan ->recipes ->ingredients 
         foreach($mealPlans as $plan) {
             foreach($plan->recipe->ingredients as $ingredient) {
-                $exists = DB::table('household_ingredients')
+                $exists = DB::table('pantries_items')
                             ->where('household_id', $householdId)
                             ->where('ingredient_id', $ingredient->id)
                             ->exists();
 
                 if(!$exists) {
-                    if(isset($missingIngredients[$ingredient->id])) {
-                        $missingIngredients[$ingredient->id]['quantity_needed'] += 1; 
+                    if(isset($missing[$ingredient->id])) {
+                        $missing[$ingredient->id]['quantity_needed'] += 1; 
                     } else {
-                        $missingIngredients[$ingredient->id] = [
+                        $missing[$ingredient->id] = [
                             'id' => $ingredient->id,
                             'name' => $ingredient->name,
                             'unit_id' => $ingredient->unit_id,
@@ -69,7 +66,7 @@ class ShoppingListService
             }
         }
 
-        return array_values($missingIngredients);
+        return array_values($missing);
     }
 
 }
