@@ -12,8 +12,6 @@ class RecipeService
     function getById($id, $householdId)
     {
         return Recipe::with('ingredients')->where("household_id",$householdId)->findOrFail($id);
-        
-        
     }
 
     function create()
