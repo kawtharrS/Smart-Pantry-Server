@@ -4,18 +4,16 @@ use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\HouseHoldController;
 use App\Http\Controllers\User\IngredientController;
 use App\Http\Controllers\User\PantryItemsController;
-use App\Http\Controllers\User\PantryTransactionController;
 use App\Http\Controllers\User\RecipeController;
 use App\Http\Controllers\User\RecipeIngredientcontroller;
 use App\Http\Controllers\User\RecipeInstructionController;
 use App\Http\Controllers\User\MealPlanController;
-use App\Http\Controllers\User\MealPlanItemController;
 use App\Http\Controllers\User\ExpenseController;
 use App\Http\Controllers\User\ExpenseItemController;
 use App\Http\Controllers\User\ShoppingListController;
 use App\Http\Controllers\User\ShoppingListItemController;
 use App\Http\Controllers\AuthController;
-
+use App\Http\Controllers\User\OpenAIController;
 
 
 Route::group(["prefix"=>"v0.1", "middleware"=>"auth:api"], function()
@@ -118,6 +116,10 @@ Route::group(["prefix"=>"expenseItems"], function(){
         Route::post('/add', [IngredientController::class, "createIngredient"]);
         Route::post('/update/{id}', [IngredientController::class, "updateIngredient"]);
 });
+
+    Route::post('/api', [OpenAIController::class, 'getSuggestion']);
+    Route::post('/insight', [OpenAIController::class, 'getInsight']);
+    Route::post('/substitute', [OpenAIController::class, 'substituteIngredients']);
 
 });
 
