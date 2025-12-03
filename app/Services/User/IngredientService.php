@@ -2,6 +2,7 @@
 
 namespace App\Services\User;
 use App\Models\Ingredient;
+
 class IngredientService
 {
     function getAllIngredients()

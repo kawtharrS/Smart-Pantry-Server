@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Services\User;
+
 use App\Models\Household;
-use Illuminate\Support\Facades\Auth;
 
 class HouseholdService
 {
-   function getAllHouseholds()
+    function getAllHouseholds()
     {
         return Household::all();
     }
@@ -16,56 +16,48 @@ class HouseholdService
         return Household::findOrFail($id);
     }
 
-    public function create($userId, $name, $inviteCode)
+    public function create()
     {
-        $household = new Household();
-        $household->name = $name;
-        $household->invite_code = $inviteCode;
-        $household->save();
-
-        $household->users()->attach($userId);
-
-        return $household;
+        return new Household;
     }
 
     function update($id, array $data)
     {
-        $Household = Household::findOrFail($id);
-        $Household->update($data);
-        return $Household;
+        $household = Household::findOrFail($id);
+        $household->update($data);
+        return $household;
     }
 
     function delete($id)
     {
-        $Household = Household::findOrFail($id);
-        $Household->delete();
+        $household = Household::findOrFail($id);
+        $household->delete();
         return true;
     }
-public function join($userId, $inviteCode)
-{
-    $household = Household::where('invite_code', $inviteCode)->first();
 
-    if (!$household) {
-        return [
-            'status' => 'error',
-            'message' => 'Invalid invite code.'
-        ];
-    }
+    public function join($userId, $inviteCode)
+    {
+        $household = Household::where('invite_code', $inviteCode)->first();
 
-    if ($household->users()->where('user_id', $userId)->exists()) {
+        if (!$household) {
+            return [
+                'status' => 'error',
+                'message' => 'Invalid invite code.'
+            ];
+        }
+
+        if ($household->users()->where('user_id', $userId)->exists()) {
+            return [
+                'status' => 'success',
+                'household' => $household
+            ];
+        }
+
+        $household->users()->attach($userId);
+
         return [
             'status' => 'success',
             'household' => $household
         ];
     }
-
-    $household->users()->attach($userId);
-
-    return [
-        'status' => 'success',
-        'household' => $household
-    ];
-}
-
-
 }
