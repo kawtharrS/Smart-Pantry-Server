@@ -8,15 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Recipe extends Model
 {
-    protected $fillable = [
-        'household_id',
-        'recipe_id',
-        'title',
-        'description',
-        'prep_time_min',
-        'cook_time_min',
-        'serving',
-    ];
+    protected $fillable = ['household_id','recipe_id','title','description','prep_time_min','cook_time_min','serving'];
 
     public function instructions(): HasMany{
         return $this->hasMany(RecipesInstruction::class);
@@ -24,10 +16,10 @@ class Recipe extends Model
 
     public function ingredients(): BelongsToMany{
         return $this->belongsToMany(
-    Ingredient::class,
-    'recipes_ingredients_table', 
-    'recipe_id',           
-    'ingredient_id'        
+        Ingredient::class,
+        'recipes_ingredients_table', 
+        'recipe_id',           
+        'ingredient_id'        
         );
 
     }

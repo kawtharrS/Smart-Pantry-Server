@@ -10,11 +10,7 @@ class MealPlan extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'day',
-        'recipe_id',
-        'household_id',
-    ];
+    protected $fillable = ['day','recipe_id','household_id'];
 
     public function recipe(): BelongsTo
     {
