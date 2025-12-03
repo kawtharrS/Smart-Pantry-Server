@@ -3,36 +3,36 @@
 namespace App\Services\User;
 
 use App\Models\PantriesItem;
-use App\Models\Ingredient;
 
 class PantryItemsService
 {
-    function getAllPantryItems()
+    public function getAllPantryItemsByHousehold($householdId)
     {
-        return PantriesItem::with('ingredient')->get();
+        return PantriesItem::with('ingredient')
+            ->where('household_id', $householdId)
+            ->get();
     }
 
-    function getPantryItemById($id)
+    public function getPantryItemByIdAndHousehold($id, $householdId)
     {
-        return PantriesItem::with('ingredient')->findOrFail($id);
+        return PantriesItem::with('ingredient')
+            ->where('household_id', $householdId)
+            ->findOrFail($id);
     }
 
-public function create()
-{
-    return new PantriesItem();
-  
-}
+    public function create()
+    {
+        return new PantriesItem;
+    }
 
-
-
-    function update($id, array $data)
+    public function update($id, array $data)
     {
         $pantryItem = PantriesItem::findOrFail($id);
         $pantryItem->update($data);
         return $pantryItem;
     }
 
-    function delete($id)
+    public function delete($id)
     {
         $pantryItem = PantriesItem::findOrFail($id);
         $pantryItem->delete();

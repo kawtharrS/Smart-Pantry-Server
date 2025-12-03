@@ -58,4 +58,10 @@ class User extends Authenticatable implements JWTSubject {
     public function getJWTCustomClaims(){
         return [];
     }
+
+    public function households()
+    {
+        return $this->belongsToMany(Household::class, 'household_user');
+    }
+
 }

@@ -1,24 +1,37 @@
 <?php
 
 namespace App\Services\User;
+
 use App\Models\MealPlan;
 use App\Models\Recipe;
 
 class MealPlanService
 {
-    function getAll()
+    function getAll($householdId)
     {
-        return MealPlan::with('recipe.ingredients')->get();
+        return MealPlan::with('recipe.ingredients')
+                       ->where('household_id', $householdId)
+                       ->get();
     }
 
-    function getById($id)
+    function getById($id, $householdId)
     {
-        return MealPlan::with('recipe.ingredients' )->findOrFail($id);
+        return MealPlan::with('recipe.ingredients')
+                       ->where('household_id', $householdId)
+                       ->findOrFail($id);
     }
     
     function getByDay($day)
     {
         return MealPlan::where('day', $day)
+                       ->with('recipe.ingredients')
+                       ->first(); 
+    }
+    
+    function getByDayAndHousehold($day, $householdId)
+    {
+        return MealPlan::where('day', $day)
+                       ->where('household_id', $householdId)
                        ->with('recipe.ingredients')
                        ->first(); 
     }

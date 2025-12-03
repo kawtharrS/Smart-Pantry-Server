@@ -4,14 +4,15 @@ namespace App\Services\User;
 use App\Models\Recipe;
 class RecipeService
 {
-    function getAll()
+    function getAll($householdId)
     {
-        return Recipe::with('ingredients')->get();
+        return Recipe::with('ingredients')->where('household_id',$householdId)->get();
     }
 
-    function getById($id)
+    function getById($id, $householdId)
     {
-        return Recipe::with('ingredients')->findOrFail($id);
+        return Recipe::with('ingredients')->where("household_id",$householdId)->findOrFail($id);
+        
         
     }
 

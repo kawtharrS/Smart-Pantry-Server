@@ -36,4 +36,9 @@ class Recipe extends Model
         return $this->belongsTo(MealPlan::class);
     }
 
+    public function household()
+    {
+        return $this->belongsTo(Household::class);
+    }
+
 }

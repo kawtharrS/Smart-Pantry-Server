@@ -2,6 +2,8 @@
 
 namespace App\Services\User;
 use App\Models\Household;
+use Illuminate\Support\Facades\Auth;
+
 class HouseholdService
 {
    function getAllHouseholds()
@@ -14,9 +16,16 @@ class HouseholdService
         return Household::findOrFail($id);
     }
 
-    function create()
+    public function create($userId, $name, $inviteCode)
     {
-        return new Household;
+        $household = new Household();
+        $household->name = $name;
+        $household->invite_code = $inviteCode;
+        $household->save();
+
+        $household->users()->attach($userId);
+
+        return $household;
     }
 
     function update($id, array $data)
@@ -32,4 +41,31 @@ class HouseholdService
         $Household->delete();
         return true;
     }
+public function join($userId, $inviteCode)
+{
+    $household = Household::where('invite_code', $inviteCode)->first();
+
+    if (!$household) {
+        return [
+            'status' => 'error',
+            'message' => 'Invalid invite code.'
+        ];
+    }
+
+    if ($household->users()->where('user_id', $userId)->exists()) {
+        return [
+            'status' => 'success',
+            'household' => $household
+        ];
+    }
+
+    $household->users()->attach($userId);
+
+    return [
+        'status' => 'success',
+        'household' => $household
+    ];
+}
+
+
 }

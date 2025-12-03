@@ -9,16 +9,26 @@ class PantryItemsController extends Controller
 {
     public function __construct(protected PantryItemsService $pantryItemsService)
     {}
-    function getAllPantryItems()
+    public function getAllPantryItems(Request $request)
     {
-        $users = $this->pantryItemsService->getAllPantryItems();
-        return $this->responseJSON($users);
+        $householdId = $request->query('household_id');
+
+        if (!$householdId) {
+            return $this->responseJSON([], "No household_id provided", 400);
+        }
+
+        $items = $this->pantryItemsService->getAllPantryItemsByHousehold($householdId);
+
+        return $this->responseJSON($items);
     }
 
-    function show($id)
+
+    public function show(Request $request, $id)
     {
-        $user = $this->pantryItemsService->getPantryItemById($id);
-        return $this->responseJSON($user);
+        $householdId = $request->user()->household_id;
+        $item = $this->pantryItemsService->getPantryItemByIdAndHousehold($id, $householdId);
+
+        return $this->responseJSON($item);
     }
 
     function updatePantryItem(Request $request, $id)

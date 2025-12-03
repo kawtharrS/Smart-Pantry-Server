@@ -17,35 +17,26 @@ use App\Http\Controllers\User\ShoppingListItemController;
 use App\Http\Controllers\AuthController;
 
 
-Route::group(["prefix"=>"user"], function(){
-    Route::get('/', [UserController::class, "getAllUsers"]);
-    Route::get('/delete/{id}',[UserController::class, "deleteUser"] );
-    Route::get('/{id}',[UserController::class, "show"] );
-    Route::post('/add', [UserController::class, "createUser"]);
-    Route::post('/update/{id}', [UserController::class, "updateUser"]);
-});
 
 Route::group(["prefix"=>"v0.1", "middleware"=>"auth:api"], function()
 {
+    Route::group(["prefix"=>"user"], function(){
+        Route::get('/', [UserController::class, "getAllUsers"]);
+        Route::get('/delete/{id}',[UserController::class, "deleteUser"] );
+        Route::get('/{id}',[UserController::class, "show"]  );
+        Route::post('/add', [UserController::class, "createUser"]);
+        Route::post('/update/{id}', [UserController::class, "updateUser"]);
+    });
+
     Route::group(["prefix"=>"household"], function(){
-        Route::get('/households', [HouseHoldController::class, "getAllHouseholds"]);
+        Route::get('/', [HouseHoldController::class, "getAllHouseholds"]);
         Route::get('/delete/{id}',[HouseHoldController::class, "deleteHousehold"] );
-        Route::get('/household/{id}',[HouseHoldController::class, "show"] );
+        Route::get('/{id}',[HouseHoldController::class, "show"] );
         Route::post('/add', [HouseHoldController::class, "createHousehold"]);
         Route::post('/update/{id}', [HouseHoldController::class, "updateHousehold"]);
+        Route::post('/join',[HouseholdController::class, "join"]);
     });
-});
-
-
-Route::group(["prefix"=>"ingredient"], function(){
-    Route::get('/', [IngredientController::class, "getAllIngredients"]);
-    Route::get('/delete/{id}',[IngredientController::class, "deleteIngredient"] );
-    Route::get('//{id}',[IngredientController::class, "show"] );
-    Route::post('/add', [IngredientController::class, "createIngredient"]);
-    Route::post('/update/{id}', [IngredientController::class, "updateIngredient"]);
-});
-
-Route::group(["prefix"=>"pantryItem"], function(){
+    Route::group(["prefix"=>"pantryItem"], function(){
     Route::get('/', [PantryItemsController::class, "getAllPantryItems"]);
     Route::get('/{id}',[PantryItemsController::class, "deletePantryItem"] );
     Route::get('/{id}',[PantryItemsController::class, "show"] );
@@ -120,6 +111,17 @@ Route::group(["prefix"=>"expenseItems"], function(){
     Route::post('/add', [ExpenseItemController::class, "createExpenseItem"]);
     Route::post('/update/{id}', [ExpenseItemController::class, "updateExpenseItem"]);
 });
+    Route::group(["prefix"=>"ingredient"], function(){
+        Route::get('/', [IngredientController::class, "getAllIngredients"]);
+        Route::get('/delete/{id}',[IngredientController::class, "deleteIngredient"] );
+        Route::get('//{id}',[IngredientController::class, "show"] );
+        Route::post('/add', [IngredientController::class, "createIngredient"]);
+        Route::post('/update/{id}', [IngredientController::class, "updateIngredient"]);
+});
+
+});
+
+
 
 
 

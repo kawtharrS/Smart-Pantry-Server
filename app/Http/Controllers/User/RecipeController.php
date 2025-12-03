@@ -9,15 +9,19 @@ class RecipeController extends Controller
 {
    public function __construct(protected RecipeService $recipeService)
     {}
-    function getAllRecipes()
+    function getAllRecipes(Request $request)
     {
-        $recipes = $this->recipeService->getAll();
+        $household_id = $request->query("household_id");
+        if(!$household_id)
+            return $this->responseJSON([], "No household_id provided", 400);
+        $recipes = $this->recipeService->getAll($household_id);
         return $this->responseJSON($recipes);
     }
 
-    function show($id)
+    function show(Request $request, $id)
     {
-        $recipe = $this->recipeService->getById($id);
+        $household_id =$request->user()->household_id; 
+        $recipe = $this->recipeService->getById($id, $household_id);
         return $this->responseJSON($recipe);
     }
 
