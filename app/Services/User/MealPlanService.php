@@ -36,6 +36,29 @@ class MealPlanService
                        ->first(); 
     }
 
+    function createOrUpdateForDay($day, $householdId, $recipeId)
+    {
+        // Check if meal plan exists for this day AND household
+        $existingMealPlan = MealPlan::where('day', $day)
+                                    ->where('household_id', $householdId)
+                                    ->first();
+        
+        if ($existingMealPlan) {
+            $existingMealPlan->recipe_id = $recipeId;
+            $existingMealPlan->save();
+            $existingMealPlan->load('recipe');
+            return $existingMealPlan;
+        } else {
+            $meal = new MealPlan();
+            $meal->recipe_id = $recipeId;
+            $meal->household_id = $householdId;
+            $meal->day = $day;
+            $meal->save();
+            $meal->load('recipe');
+            return $meal;
+        }
+    }
+
     function create()
     {
         return new MealPlan; 

@@ -14,25 +14,16 @@ class MealPlanController extends Controller
     
     public function getAllMealPlans(Request $request)
     {
-        // Handle specific day query with household_id
         if ($request->has('day')) {
-            $household_id = $request->query('household_id');
-            
-            if (!$household_id) {
-                return $this->responseJSON([], "No household_id provided", 400);
-            }
-            
-            $mealPlan = $this->mealPlanService->getByDayAndHousehold($request->day, $household_id);
+            $mealPlan = $this->mealPlanService->getByDay($request->day);
             return $this->responseJSON($mealPlan);
         }
-        
-        // Handle all meal plans for household
-        $household_id = $request->query("household_id");
-        
-        if (!$household_id) {
-            return $this->responseJSON([], "No household_id provided", 400);
-        }
 
+        $household_id = $request->query("household_id");
+
+        if(!$household_id)
+            return $this->responseJSON([], "No household_id provided", 400);
+        
         $mealPlans = $this->mealPlanService->getAll($household_id);
         return $this->responseJSON($mealPlans);
     }
@@ -46,7 +37,13 @@ class MealPlanController extends Controller
 
     public function updateMealPlan(Request $request, $id)
     {
-        $mealPlan = $this->mealPlanService->update($id, $request->all());
+        $validated = $request->validate([
+            'recipe_id' => 'sometimes|integer|exists:recipes,id',
+            'household_id' => 'sometimes|integer|exists:households,id',
+            'day' => 'required'
+        ]);
+
+        $mealPlan = $this->mealPlanService->update($id, $validated);
         
         if ($mealPlan) {
             $mealPlan->load('recipe.ingredients');
@@ -58,30 +55,20 @@ class MealPlanController extends Controller
 
     public function createMealPlan(Request $request)
     {
-        // Check if meal plan exists for this day AND household
-        $existingMealPlan = MealPlan::where('day', $request->day)
-                                    ->where('household_id', $request->household_id)
-                                    ->first();
-        
-        if ($existingMealPlan) {
-            // Update existing meal plan
-            $existingMealPlan->recipe_id = $request->recipe_id;
-            
-            if ($existingMealPlan->save()) {
-                $existingMealPlan->load('recipe.ingredients');
-                return $this->responseJSON($existingMealPlan);
-            }
-        } else {
-            // Create new meal plan
-            $meal = $this->mealPlanService->create();
-            $meal->recipe_id = $request->recipe_id;
-            $meal->household_id = $request->household_id;
-            $meal->day = $request->day;
+        $validated = $request->validate([
+            'recipe_id' => 'required|integer|exists:recipes,id',
+            'household_id' => 'required|integer|exists:households,id',
+            'day' => 'required'
+        ]);
 
-            if ($meal->save()) {
-                $meal->load('recipe.ingredients');
-                return $this->responseJSON($meal);
-            }
+        $mealPlan = $this->mealPlanService->createOrUpdateForDay(
+            $validated['day'],
+            $validated['household_id'],
+            $validated['recipe_id']
+        );
+        
+        if ($mealPlan) {
+            return $this->responseJSON($mealPlan);
         }
         
         return $this->responseJSON(null, "failure", 400);
