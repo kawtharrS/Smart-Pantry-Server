@@ -40,18 +40,11 @@ class OpenAIController extends Controller
             ], 400);
         }
         
-        try {
-            $insights = $this->openAIService->insight($mealplans); 
-            return response()->json([
-                'status' => 'success',
-                'insights' => $insights
-            ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Failed to generate insights: ' . $e->getMessage()
-            ], 500);
-        }
+        $insights = $this->openAIService->insight($mealplans); 
+        return response()->json([
+            'status' => 'success',
+            'insights' => $insights
+        ]);
     }
 
     public function substituteIngredients(Request $request)
@@ -66,18 +59,13 @@ class OpenAIController extends Controller
         $missingIng = $request->input('missing_ingredients');
         $recipe = $request->input('recipe');
 
-        try {
-            $response = $this->openAIService->substitute($ingredients, $missingIng, $recipe);
+        
+        $response = $this->openAIService->substitute($ingredients, $missingIng, $recipe);
 
-            return response()->json([
-                'status' => 'success',
-                'substitution' => $response
-            ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => $e->getMessage()
-            ], 500);
-        }
+        return response()->json([
+            'status' => 'success',
+            'substitution' => $response
+        ]);
+
     }
 }
