@@ -33,7 +33,7 @@ Route::group(["prefix" => "v0.1", "middleware" => "auth:api"], function () {
 
     Route::group(["prefix" => "pantryItem"], function () {
         Route::get('/', [PantryItemsController::class, "getAllPantryItems"]);
-        Route::get('/{id}', [PantryItemsController::class, "deletePantryItem"]);
+        Route::get('delete/{id}', [PantryItemsController::class, "deletePantryItem"]);
         Route::get('/{id}', [PantryItemsController::class, "show"]);
         Route::post('/add', [PantryItemsController::class, "createPantryItem"]);
         Route::post('/update/{id}', [PantryItemsController::class, "updatePantryItem"]);
@@ -59,7 +59,7 @@ Route::group(["prefix" => "v0.1", "middleware" => "auth:api"], function () {
         Route::get('/recipeIngredients', [RecipeIngredientcontroller::class, "getAllRecipesIngredient"]);
         Route::get('/delete/{id}', [RecipeIngredientcontroller::class, "deleteRecipeIngredient"]);
         Route::get('/recipeIngredient/{id}', [RecipeIngredientcontroller::class, "show"]);
-        Route::post('/add', [RecipeIngredientcontroller::class, "createRecipeInstruction"]);
+        Route::post('/add', [RecipeIngredientcontroller::class, "createRecipesIngredient"]);
         Route::post('/update/{id}', [RecipeIngredientcontroller::class, "updateRecipeIngredient"]);
     });
 
@@ -78,7 +78,6 @@ Route::group(["prefix" => "v0.1", "middleware" => "auth:api"], function () {
         Route::get('/shoppinglist/{id}', [ShoppingListController::class, "show"]);
         Route::post('/add', [ShoppingListController::class, "createShoppingList"]);
         Route::post('/update/{id}', [ShoppingListController::class, "updateShoppingList"]);
-        Route::get('/shoppingList/week', [ShoppingListController::class, 'getWeeklyList']);
     });
 
     Route::group(["prefix" => "ingredient"], function () {

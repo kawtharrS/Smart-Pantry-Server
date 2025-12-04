@@ -53,7 +53,7 @@ class IngredientController extends Controller
             'proteinPer100g' => 'required|numeric|min:0',
             'fatsPer100g' => 'required|numeric|min:0',
             'carbsPer100g' => 'required|numeric|min:0',
-            'expiry_date' => 'sometimes|date|after:today',
+            'expiry_date' => 'sometimes|date',
             'quantity' => 'sometimes|numeric|min:0'
         ]);
         
@@ -80,6 +80,6 @@ class IngredientController extends Controller
         {
             return $this->responseJSON($ingredient, "success", 200);
         }
-        return $this->responseJSON(null, "failure", 400); // Fixed syntax error: changed '.' to ','
+        return $this->responseJSON(null, "failure", 400); 
     }
 }

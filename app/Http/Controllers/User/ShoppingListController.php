@@ -72,18 +72,4 @@ class ShoppingListController extends Controller
         return $this->responseJSON(null, "failure", 400);
     }
 
-    public function getWeeklyShoppingList(Request $request)
-    {
-        $validated = $request->validate([
-            'household_id' => 'required|integer|exists:households,id',
-            'days' => 'required|array',
-        ]);
-
-        $shoppingList = $this->shoppingListService->getWeeklyShoppingList(
-            $validated['household_id'], 
-            $validated['days']
-        );
-        
-        return $this->responseJSON($shoppingList, 'success', 200);
-    }
 }

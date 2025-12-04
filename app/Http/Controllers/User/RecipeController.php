@@ -14,11 +14,7 @@ class RecipeController extends Controller
     
     function getAllRecipes(Request $request)
     {
-        $validated = $request->validate([
-            'household_id' => 'required|integer|exists:households,id'
-        ]);
-        
-        $recipes = $this->recipeService->getAll($validated['household_id']);
+        $recipes = $this->recipeService->getAll($request['household_id']);
         return $this->responseJSON($recipes);
     }
 
