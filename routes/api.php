@@ -48,9 +48,9 @@ Route::group(["prefix" => "v0.1", "middleware" => "auth:api"], function () {
     });
 
     Route::group(["prefix" => "recipeInstruction"], function () {
-        Route::get('/recipeInstructions', [RecipeInstructionController::class, "getAllRecipesInstruction"]);
+        Route::get('/', [RecipeInstructionController::class, "getAllRecipesInstruction"]);
         Route::get('/delete/{id}', [RecipeInstructionController::class, "deleteRecipeInstruction"]);
-        Route::get('/recipeInstruction/{id}', [RecipeInstructionController::class, "show"]);
+        Route::get('/{id}', [RecipeInstructionController::class, "show"]);
         Route::post('/add', [RecipeInstructionController::class, "createRecipeInstruction"]);
         Route::post('/update/{id}', [RecipeInstructionController::class, "updateRecipeInsruction"]);
     });

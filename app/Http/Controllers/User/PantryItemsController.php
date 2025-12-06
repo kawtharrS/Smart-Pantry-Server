@@ -56,7 +56,7 @@ class PantryItemsController extends Controller
             'unit_id' => 'required|integer|exists:units,id',
             'quantity' => 'required|numeric|min:0',
             'location' => 'sometimes|string|max:255',
-            'expiry_date' => 'sometimes|date|after:today'
+            'expiry_date' => 'sometimes|date'
         ]);
         
         $item = $this->pantryItemsService->create();

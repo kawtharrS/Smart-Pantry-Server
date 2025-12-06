@@ -16,7 +16,7 @@ class OpenAIService
 
         try {
             $response = OpenAI::chat()->create([
-                'model' => 'gpt-3.5-turbo', // Changed from 'gpt-5'
+                'model' => 'gpt-3.5-turbo', 
                 'messages' => [
                     ['role' => 'system', 'content' => 'You are a creative chef who makes delicious recipes from available ingredients.'],
                     ['role' => 'user', 'content' => $prompt]
