@@ -23,7 +23,7 @@ class OpenAIController extends Controller
         ]);
 
         $ingredients = $request->input('ingredients');
-
+        //$request[]
         $recipe = $this->openAIService->suggestion($ingredients);
 
         return response()->json(['recipe' => $recipe]);

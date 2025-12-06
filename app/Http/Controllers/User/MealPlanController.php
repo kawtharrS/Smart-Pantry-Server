@@ -30,6 +30,7 @@ class MealPlanController extends Controller
 
     public function show(Request $request, $id)
     {
+        //$user = Auth::user();
         $household_id = $request->user()->household_id;
         $mealPlan = $this->mealPlanService->getById($id, $household_id);
         return $this->responseJSON($mealPlan);
